@@ -1,5 +1,6 @@
 <?php 
 require 'inc/head.php'; 
+require 'inc/data/products.php';
 
 if (!isset($_SESSION['name'])) {
     header("Location: login.php");
@@ -11,10 +12,14 @@ if (!isset($_SESSION['name'])) {
     <div class="row">
         TODO : Display shopping cart items from $_SESSION here.
         <?php 
-          $cookies = $_SESSION['cart'];
-          foreach ($cookies as $cookie) {
-            var_dump($cookie);
-          }
+          if (!empty($_SESSION['cart'])) :
+            foreach ($catalog as $key => $cookie) :
+                if (in_array($key, $_SESSION['cart'])) : ?>
+                    <li><?= $cookie['name']; ?></li>
+        <?php
+                endif;
+            endforeach;
+        endif;
         ?>
     </div>
 </section>
